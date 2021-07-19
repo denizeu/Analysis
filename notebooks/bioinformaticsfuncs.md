@@ -1,6 +1,6 @@
-# Bioinformatics Function Notes
+# First Draft of Functions
 
-## Unique Kmer Function
+## Finding the Unique Kmers
 ```julia 
 function uniqueKmers(sequence, k)
     for base in sequence 
@@ -52,7 +52,7 @@ The union shows a set with all the elements in both sets.
 Therefore, this mathematical function dividing the two and subtracting 1- that value is a simple distance fraction that shows the distance between the kmer sets. 
 This is important because it can be used to see when genomes diverge and become different from one another.
 
-## Comparing Time and Kmer Dist
+## Time vs. UniqueKmers
 ```julia 
 function kmertime(path)
     early= []
@@ -83,7 +83,7 @@ If so, I pushed the unique kmer count of that sequence to the time period array 
 This is helpful to the analysis because it splits up the kmer comparisons for each time period to show how much the unique kmer compositions differ as time goes on, and the sequence can experience more changes/mutations to its code.
 However, I need to figure out how to make the argument succinct with the ideal output as I am currently retrieving an error.
 
-### Sorting Kmertime Data into a vector
+### Sorting Kmertime Data into a Vector
 ```julia 
 function kmertimes(path)
     kmernumba= [] #array to store the unique kmers per each time period
@@ -98,7 +98,7 @@ This function is created in order to make the process for making graphs easier.
 It is meant to store the number of unique kmers per time period into a vector that can be taken and made into a histogram.
 I use uniquekmers within this because it would be illuminating to see the differences in time period grouped by number of unique kmers.
 
-### Kmertime Histogram
+## Kmertime Histogram
 ```julia 
 using Plots 
 histogram(kmertimes("data/genomes_CoV2.fasta"))
@@ -138,7 +138,7 @@ This can help determine how much the sequence changes depending on the geographi
 Japan is close to China, but Turkey is also relatively near so it will be interesting to see how different they are. 
 I would have liked to try to compare them to China but it is hard for me to determine which data indicates Wuhan's data.
 
-### Kmer Location Plot
+## Kmer Location Plot
 ```julia
 Plots.gr()
 x= ["Turkey", "Japan"] #x-value is location: turkey or japan

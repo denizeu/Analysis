@@ -1,4 +1,4 @@
-# Calculations
+# Sequence Calculations
 
 ## Mean & Standard Deviation: Lengths and Counts
 ```julia 
@@ -25,6 +25,7 @@ Then a for loop is created in which the length of each position is pushed to the
 G's and C's are identified and the GC content is determined by dividing number of g's and c's by the length of each sequence.
 The GC content is then pushed to the counts array.
 
+## Minimum and Maximum Lengths
 ```julia 
 function minMax(path)
     ret = parse_fasta(path)[2]
@@ -41,6 +42,7 @@ The function does the same for the maximum.
 This function is important because it helps us locate which DNA sequences are the longest and shortest.
 This is important for this project because it identifies differences in sequences which can be helpful in determining which analyses are best.
 
+## Sequence Lengths
 ```julia 
 function seqlength(path)
     lengths = []
@@ -70,6 +72,7 @@ This can be used to determine where most of the data exists.
 For example, this histogram shows that most of the genomes are above 29500.
 This is important in comparing sequence sizes and showing which are more/less similar to one another.
 
+### Getting Rid of 5% of Sequences
 ```julia 
 function sorting(path)
     sequences = seqlength(path)
