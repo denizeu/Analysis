@@ -100,8 +100,9 @@ I use uniquekmers within this because it would be illuminating to see the differ
 
 ## Kmertime Histogram
 ```julia 
-using Plots 
-histogram(kmertimes("data/genomes_CoV2.fasta"))
+using Plots
+using BioinformaticsBISC195
+histogram(kmertimes("data/genomes_CoV2.fasta")) # TODO: This throws an error (`sequence not defined`)
 ```
 This is a Plots function.
 It is supposed to create a histogram with x and y.
@@ -142,6 +143,7 @@ I would have liked to try to compare them to China but it is hard for me to dete
 ```julia
 Plots.gr()
 x= ["Turkey", "Japan"] #x-value is location: turkey or japan
+# TODO: Where's the code to generate `Tu` and `Ja`?
 y= [Tu, Ja] #y value holds the arrays of unique kmers
 pie(x, y, title= "Number of Unique COVID-19 Kmers in Turkey vs. Japan")
 ```
