@@ -2,9 +2,11 @@
 
 ## Mean & Standard Deviation: Lengths and Counts
 ```julia 
-using BioinformaticsBISC195
-using Statistics
-function read(path)
+using BioinformaticsBISC195 # TODO: This isn't part of the environment, you should commit your `Project.toml` and `Manifest.toml` files
+using Statistics # optional: add this too. It's not strictly necessary since it's part of the StdLib
+
+# TODO: Move all of these functions to BioinformaticsBISC195
+function read(path) # TODO: change the name of this function (read is already used, and isn't very descriptive)
     lengths= []
     counts=[]
     data= parse_fasta(path)
@@ -15,7 +17,7 @@ function read(path)
         GCcontent= (gs + cs)/length(i)
         push!(counts, GCcontent)
     end
-        return (mean(lengths), std(lengths), mean(counts), std(counts))
+    return (mean(lengths), std(lengths), mean(counts), std(counts))
 end
 ```
 This code is calculating the mean and standard deviation of gc content and lengths of my coronavirus genomes.
@@ -26,6 +28,7 @@ G's and C's are identified and the GC content is determined by dividing number o
 The GC content is then pushed to the counts array.
 
 ## Minimum and Maximum Lengths
+<!-- Optional: all of your functions start from reading the path, which is a bit wasteful. Why not write them to take a vector of headers, or a vector of sequences, or both, depending on which you need? -->
 ```julia 
 function minMax(path)
     ret = parse_fasta(path)[2]
@@ -37,7 +40,7 @@ end
 This is my minMax function.
 This function calculates the minimum sequence length in the NCBI dataset and the maximum sequence length in the NCBI dataset.
 First, ret is initialized.
-Ret calls the parse function, and with the location of [2], ret indicates to the code that we are finding the length of the sequences and not of the headers.
+Ret calls the parse function, and with the location of `[2]`, ret indicates to the code that we are finding the length of the sequences and not of the headers.
 The function does the same for the maximum.
 This function is important because it helps us locate which DNA sequences are the longest and shortest.
 This is important for this project because it identifies differences in sequences which can be helpful in determining which analyses are best.
@@ -55,9 +58,9 @@ end
 ```
 This function returns the sequence length of each DNA sequence within the dataset from NCBI. 
 It creates an array in which the lengths can be stored.
-Then, to clean up the data and separate them into header and sequences, the parse_fasta() function is called.
+Then, to clean up the data and separate them into header and sequences, the `parse_fasta()` function is called.
 This is important because it allows the two to be separated, and for further functions to be worked on the sequences independent of headers.
-Next, I initiated a for loop that goes through the data stored at position 2 by using [2].
+Next, I initiated a for loop that goes through the data stored at position 2 by using `[2]`.
 This position represents the sequence data and assures that the length function is being called onto the sequences and not the header information.
 The length of each position within the data is pushed into the lengths array and then returned.
 This is important because the length of sequences can be compared for differences or used within various functions to determine important changes between genomes.
@@ -77,17 +80,19 @@ This is important in comparing sequence sizes and showing which are more/less si
 function sorting(path)
     sequences = seqlength(path)
     headers = parse_fasta(path)[1]
-    check = findall(x->x<29500, sequences)
+     # TODO: Change to `x >= 29500, then do `headers = headers[check]` and `sequences = sequences[check]`
+     # alternatively, just do `deleteat!()` with `check`, NOT in a loop
+    check = findall(x-> x < 29500, sequences)
     cpt = 0
     for i in 1:length(check)
-            splice!(headers, check[i] - cpt)
-            splice!(sequences, check[i] - cpt)
-            cpt = cpt + 1
+        splice!(headers, check[i] - cpt)
+        splice!(sequences, check[i] - cpt)
+        cpt = cpt + 1
     end
     return (sequences, headers)
 end
 ```
 This function is a sorting function which cuts down the sequence length data to only show the relevant basepair lengths.
 Since all my sequences were >25k bases, I chose to cut off all basepairs below the length 29500.
-Therefore, this function will return two vectors stored at position [1] and [2].
-In [1] exists the sequences that are below the length 29500 and in [2] exists the headers that correspond to the sequences that are below the sequence length 29500.
+Therefore, this function will return two vectors stored at position `[1]` and `[2]`.
+In [1] exists the sequences that are below the length 29500 and in `[2]` exists the headers that correspond to the sequences that are below the sequence length 29500.
