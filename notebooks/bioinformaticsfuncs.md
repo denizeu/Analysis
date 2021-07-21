@@ -101,6 +101,7 @@ I use uniquekmers within this because it would be illuminating to see the differ
 ## Kmertime Histogram
 ```julia 
 using Plots 
+using BioinformaticsBISC195
 histogram(kmertimes("data/genomes_CoV2.fasta"))
 ```
 This is a Plots function.
