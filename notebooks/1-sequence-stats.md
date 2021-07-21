@@ -78,12 +78,8 @@ function sorting(path)
     sequences = seqlength(path)
     headers = parse_fasta(path)[1]
     check = findall(x->x<29500, sequences)
-    cpt = 0
-    for i in 1:length(check)
-            splice!(headers, check[i] - cpt)
-            splice!(sequences, check[i] - cpt)
-            cpt = cpt + 1
-    end
+    deleteat!(sequences, check)
+     deleteat!(sequences, check)
     return (sequences, headers)
 end
 ```
