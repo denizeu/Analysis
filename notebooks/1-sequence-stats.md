@@ -2,21 +2,9 @@
 
 ## Mean & Standard Deviation: Lengths and Counts
 ```julia 
-using BioinformaticsBISC195
 using Statistics
-function lengthcount(path)
-    lengths= []
-    counts=[]
-    data= parse_fasta(path)
-    for i in data[2]
-        push!(lengths, length(i))
-        gs = count(==('G'), i)
-        cs = count(==('C'), i)
-        GCcontent= (gs + cs)/length(i)
-        push!(counts, GCcontent)
-    end
-    return (mean(lengths), std(lengths), mean(counts), std(counts))
-end
+using BioinformaticsBISC195
+@doc lengthcount
 ```
 This code is calculating the mean and standard deviation of gc content and lengths of my coronavirus genomes.
 It is calculating the means of the lengths by initializing a one dimensional array for lengths and counts.
@@ -27,12 +15,7 @@ The GC content is then pushed to the counts array.
 
 ## Minimum and Maximum Lengths
 ```julia 
-function minMax(path)
-    ret = parse_fasta(path)[2]
-    retmin = length(minimum(ret))
-    retmax = length(maximum(ret))
-    return (retmin, retmax)
-end
+@doc minMax
 ```
 This is my minMax function.
 This function calculates the minimum sequence length in the NCBI dataset and the maximum sequence length in the NCBI dataset.
@@ -44,14 +27,7 @@ This is important for this project because it identifies differences in sequence
 
 ## Sequence Lengths
 ```julia 
-function seqlength(path)
-    lengths = []
-    data = parse_fasta(path)
-    for i in data[2]
-         push!(lengths, length(i))
-    end
-    return lengths
-end
+@doc seqlength
 ```
 This function returns the sequence length of each DNA sequence within the dataset from NCBI. 
 It creates an array in which the lengths can be stored.
@@ -74,14 +50,7 @@ This is important in comparing sequence sizes and showing which are more/less si
 
 ### Getting Rid of 5% of Sequences
 ```julia 
-function sorting(path)
-    sequences = seqlength(path)
-    headers = parse_fasta(path)[1]
-    check = findall(x->x<29500, sequences)
-    deleteat!(sequences, check)
-    deleteat!(headers, check)
-    return (sequences, headers)
-end
+@doc sorting
 ```
 This function is a sorting function which cuts down the sequence length data to only show the relevant basepair lengths.
 Since all my sequences were >25k bases, I chose to cut off all basepairs below the length 29500.

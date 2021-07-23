@@ -2,28 +2,7 @@
 
 ## Finding the Unique Kmers
 ```julia 
-function uniqueKmers(sequence, k)
-    for base in sequence 
-        if !occursin(base, "ACGT")
-            error("Invalid base $base encountered")
-        end
-    end
-    1 <= k <= length(sequence) || error("k must be a positive integer less than the length of the sequence")
-    kmers = Dict()    
-    stopindex = length(sequence) - k + 1
-    ret = []
-    for i in 1:stopindex
-        kmer= sequence[i:i+k-1]
-        kmer = uppercase(kmer)
-        push!(ret, kmer)
-        if haskey(kmers, kmer) == true
-            kmers[kmer] = kmers[kmer] + 1
-        else
-            kmers[kmer] = 1
-        end
-    end
-    return Set(ret)
-end
+@doc uniqueKmers
 ```
 This is a function which takes the COVID data I compiled from NCBI and returns which kmers of a given length exist.
 It takes 2 arguments: one is the sequence in which kmers appear (sequence) and the second is the length of the kmers (k).
@@ -37,9 +16,7 @@ This means that the sequences that are more similar are more likely to have a co
 
 ## Distance Kmers: Comparing Unique Kmers
 ```julia 
-function kmerdist(set1, set2)
-    return 1 - (length(intersect(set1, set2))/length(union(set1,set2)))
-end
+@doc kmerdist
 ```
 Kmerdist() is a function that returns how similar genomes are.
 It is scored 0-1.
@@ -54,92 +31,51 @@ This is important because it can be used to see when genomes diverge and become 
 
 ## Time vs. UniqueKmers
 ```julia 
-function kmertime(path)
-    early= []
-    middle= []
-    late= [] #Initializing empty arrays for 3 time periods: early(2019), middle(2020), and late(2021)
-    str= "" #Empty string used to hold the kmer patterns to be pushed into each time period
-    for line in eachline(path)
-        if header occursin("2019", path) #Findall occurrences of 2019 per header
-            push!(early, uniqueKmers(sequence, k)) #If the header contains the date "2019", the kmer will be pushed into the "early" array, calling the uniqueKmer function to process how many unique kmers exist in the sequence
-        end
-        if header occursin("2020", path)
-            push!(middle, uniqueKmers(sequence, k)) #If the header contains the date "2020", the kmer will be pushed into the "middle" array
-        end
-        if header occursin("2021", path)
-            push!(late, uniqueKmers(sequence, k)) #If the header contains the date "2021", the kmer will be pushed into the "late" array
-        end
-    return early, middle, late
-    end
-end      
+@doc kmertime
 ```
-This function is my first draft of analysis of kmer compositions comparisons between time periods. 
+This function is my analysis of kmer compositions comparisons between time periods. 
 It is important because it shows how the sequence of DNA changes as time goes on.
-First, I attempted to initialize 3 arrays for early, middle, and late.
+First, I attempted initialize 3 arrays for early, middle, and late.
 Early represents 2019, middle represents 2020 and late represents 2021.
-Then I initiated a string to hold the different kmer patterns that would be found.
-Next I began a for loop that sees if the header contains "2019", "2020" or "2021".
+Then I began a for loop that sees if the header contains "2019", "2020" or "2021".
 If so, I pushed the unique kmer count of that sequence to the time period array that it belongs to.
 This is helpful to the analysis because it splits up the kmer comparisons for each time period to show how much the unique kmer compositions differ as time goes on, and the sequence can experience more changes/mutations to its code.
-However, I need to figure out how to make the argument succinct with the ideal output as I am currently retrieving an error.
 
 ### Sorting Kmertime Data into a Vector
 ```julia 
-function kmertimes(path)
-    kmernumba= [] #array to store the unique kmers per each time period
-        data = parse_fasta(path)
-        for i in data[2]
-             push!(kmernumba, uniqueKmers(sequence, k)) #for the data within the pos 2 of sequence data, the unique kmers are pushed to the array.
-        end
-        return kmernumba
-    end
+@doc kmertimes
 ```
 This function is created in order to make the process for making graphs easier.
-It is meant to store the number of unique kmers per time period into a vector that can be taken and made into a histogram.
-I use uniquekmers within this because it would be illuminating to see the differences in time period grouped by number of unique kmers.
+It is meant to store the number of unique kmers per time period into a vector that can be used to create a bar graph to show the differences in numbers of unique kmers between 3 distinct time periods.
+I used uniquekmers within this because it is illuminating to see the differences in time period grouped by number of unique kmers.
 
-## Kmertime Histogram
+## Kmertime Bar Graph
 ```julia 
 using Plots 
 using BioinformaticsBISC195
 histogram(kmertimes("data/genomes_CoV2.fasta"))
 ```
 This is a Plots function.
-It is supposed to create a histogram with x and y.
-X is meant to be sorted by time period and Y by number of unique kmers.
-I chose a histogram because this will allow for clear differences between the three periods to be seen. 
+It creates a bar graph with x and y
+X stores time period: "early", "middle", "late".
+Y stores number of unique kmers: 63, 74, 95.
+I chose a bar graph because this will allow for differences in the number of unique kmers between the three periods to be clear. 
 It is also a good way to visualize the actual counts through the "y" axis.
 
 ## Comparing Kmer Geo Locations: Turkey vs. Japan
 ```julia
-function kmerloc(path)
-Tu= []
-Ja= []
-for header in eachline(path)
-    if header occursin("TUR", path)
-        push!(Tu, uniqueKmers(sequence, k))
-    end
-    if header occursin("Japan", path)
-        push!(Ja, uniqueKmers(sequence, k))
-    end
-        return Tu, Ja
-    kmerdist(Tu, Ja)
-    end
-    return kmerdist
-end
+@doc pairdist
 ```
-This is the function I am trying to use to calculate the unique kmers in Turkey and Japan.
-My function is meant to push these unique kmers, if found in the location which contains the headers "TUR" (Turkey) or "Japan" into two arrays.
-Next, I call the kmerdist function to calculate the difference between two sets of kmers, that of Japan and Turkey. 
-I am trying to figure out how to properly separate the two.
-I want to choose the biggest set from each and then calculate the different number of unique kmers that appear there but I am having trouble figuring out the code for this.
-I am currently retrieving a "TypeError" which indicates I need to find a non-boolean way to rewrite this.
-This function is important because it compares two locations and shows how different the number of unique kmers are.
-This can help determine how much the sequence changes depending on the geographic location.
-Japan is close to China, but Turkey is also relatively near so it will be interesting to see how different they are. 
-I would have liked to try to compare them to China but it is hard for me to determine which data indicates Wuhan's data.
+This is the function I am trying to use to calculate pairwise kmer distance using a matrix.
+My function is meant to create a matrix of sequences which lists the sequences stored in "data/refined_data.fasta".
+Then, it is meant to calculate the distance between the kmers between two sequences going through the matrix.
+However, unlike needleman wunch, it will only be calculated at one half of the matrix since distances between kmers will be the same no matter which way they are ordered.
+This means that I will only calculate the distance between each pair a single time.
+After I created the matrix of distances, I group them by early, middle and late.
+This is done in order to convert this data into a boxplot which will represent the distance between kmers in early vs early, early vs. middle, etc.
 
-## Kmer Location Plot
+
+## Pairwise Kmer Distance Box Plot
 ```julia
 Plots.gr()
 x= ["Turkey", "Japan"] #x-value is location: turkey or japan
