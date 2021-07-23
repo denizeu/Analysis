@@ -36,13 +36,12 @@ I will put these data onto a scatterplot with ***x*** being location and ***y***
 With a scatterplot, patterns based on location will be clear. 
 The scatterplots will bring clarity of how these factors differ and how spread out these differences are across different locations. 
 
-- Next, to determine whether there is a difference in kmer composition over time I would use a line graph with ***x*** being the time and ***y*** being the kmer composition of each. 
-A line graph is ideal because it will show change over time. 
-I will also make each line represent the different locations in order for more clarity and to differentiate changes between the locations (therefore there will be 3 separate lines: one per location). 
-To do this I will use labels or colors and a legend if possible.
+- Next, to determine whether there is a difference in kmer composition over time I would use a bar graph with ***x*** being the time period, grouped by early, middle and late, and ***y*** being the kmer composition of each. 
+A bar graph is ideal because it will show change between periods of time. 
+I will also make each bar clearly represent the different times in order for more clarity and to differentiate changes between the locations (therefore there will be 3 separate lines: one per location). 
+To do this I will use labels, colors and a legend if possible.
 
-- When determining whether there is a difference in kmer composition based on location, I might use a pie chart to show which country, Turkey or Japan has a greater number of unique kmers. 
-This will make it  easy to separate Turkey and Japan. 
-It also will show specific numerical differences of kmer composition between two countries that are in fairly different locations in distance from Wuhan, where the outbreak originated.
-I will also make a histogram to compare the differences in kmer compositions based on time.
-This will show what the greatest change was in which kmer compositions began to change the most dramatically, as time will be grouped early, middle, late by year.
+- When determining the distances between kmers in two sequences based on time period, I might use a boxplot chart to compare which time periods had a greater distance from each other in respect to kmer distance.
+This will make it  easy to separate time period as well as account for key differences in kmers.
+It will show specific numerical differences of kmer distance between later periods of time that may have experienced more variation in kmer composition as the virus spread further and earlier time periods where I hypothesize there will be a lesser distance.
+This will show when kmer compositions differed most from each other across time periods and shed light on how the sequences changed from each other with time.
