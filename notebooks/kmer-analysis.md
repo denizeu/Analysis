@@ -163,12 +163,12 @@ bar(["early" "middle" "late"],
            legend = :topleft
 ```
 This is a **bar graph** function using Plots!
-- It creates a bar graph with *x* and *y*.
-    - *X* stores time period: `early`/2019, `middle`/2020, `late`/2021.
-    - *Y* stores number of unique kmers: 63, 74, 95.
+- It creates a bar graph with `x` and `y`.
+    - `X` stores time period: `early`/2019, `middle`/2020, `late`/2021.
+    - `Y` stores number of unique kmers: 63, 74, 95.
 - This graph clearly shows differences in the number of unique kmers between the three periods to be clear. 
-- It is a perfect visualization for an *x*-variable that is categorical and a *y*-value that is numerical.
-- It's a good way to visualize the actual counts through the *y* axis.
+- It is a perfect visualization for an `x`-variable that is categorical and a `y`-value that is numerical.
+- It's a good way to visualize the actual counts through the `y` axis.
 - With this function, I was able to mess around with various layout formats.
 
 However, I found it *extremely* difficult to compile this bar graph.

@@ -144,7 +144,7 @@ using Plots
 data= seqlength("data/refined_data.fasta");
 histogram(data, bins=10, label= "sequence lengths", xlabel= "Sequence Lengths", ylabel= "Number of Sequences")
 ```
-Using the function for sequence lengths above and by initiating the Plots package, this creates a histogram that shows the sequence lengths as the *x*-axis and number of occurences on the *y*-axis.
+Using the function for sequence lengths above and by initiating the Plots package, this creates a histogram that shows the sequence lengths as the `x`-axis and number of occurences on the `y`-axis.
 This graph is a clear visualization of what the majority length of the sequences is.
 - From the graph, it seems that there are significantly more occurrences within the sequence length of around 29825.
 - This can be used to determine where most of the data exists.
