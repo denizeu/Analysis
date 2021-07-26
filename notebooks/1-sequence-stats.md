@@ -1,6 +1,8 @@
 # Sequence Calculations
+This notebook contains the calculations I used for sequence analysis.
 
 ## Mean & Standard Deviation: Lengths and Counts
+This is my first function:
 ```julia 
 using Statistics
 using BioinformaticsBISC195
@@ -18,21 +20,23 @@ function lengthcount(path)
     return (mean(lengths), std(lengths), mean(counts), std(counts))
 end
 ```
-This code is calculating the mean and standard deviation of the gc content and lengths of my coronavirus genomes.
-For my project, I identify the data as being the refined CoV2 genomes dataset that I have chosen to study.
-This is important because it helps identify the different lengths and counts between sequences within a data file.
+This code is calculating the *mean* and *standard deviation* of the **gc content** and **lengths** of my coronavirus genomes.
+- For my project, I identify the data as being the refined CoV2 genomes dataset that I have chosen to study.
+- This function is important because it helps identify the different lengths and counts between sequences within a data file.
 The output of this function which looks something like:
 ```julia
 (13.0, 5.656854249492381, 0.46405228758169936, 0.34199935822094457)
 ```
-As you can see, this data clearly shows the difference in sequences within a larger dataset.
-This is a quick and easy way to see whether certain sequences are much longer than each other, or vary much from the mean number of sequences.
-This can be helpful in understanding how much sequences change over time, or to further analyze to see what the affects are of longer/shorter sequences.
-It is calculating the means of the lengths by initializing a one dimensional array for lengths and counts.
-The for loop is created in which the length of each position is pushed to the length array.
-G's and C's are identified and the GC content is determined by dividing number of g's and c's by the length of each sequence.
-The GC content is then pushed to the counts array.
-The counts of GC are important because they show the relative composition of each sequence, yet another way to have a quick yet interesting analysis.
+- As you can see, this data shows the difference in sequences within a larger dataset.
+- This is a quick and easy way to see whether certain sequences are much longer than each other, or vary much from the mean number of sequences.
+- Helpful in understanding how much sequences change over time, or to further analyze to see what the affects are of longer/shorter sequences.
+
+- It is calculating the means of the lengths by initializing a one dimensional array for lengths and counts.
+- The `for` loop is created in which the length of each position is pushed to the length array.
+- G's and C's are identified and the GC content is determined by dividing number of g's and c's by the length of each sequence.
+- The GC content is then pushed to the counts array.
+- The counts of GC are important because they show the relative composition of each sequence, yet another way to have a quick yet interesting analysis.
+
 I had some trouble creating this function at first because I was not sure how to calculate the counts but I was able to work through it to come up with this function, notably this, which took some time to figure out:
 ```
 gs = count(==('G'), i)
@@ -40,6 +44,7 @@ gs = count(==('G'), i)
 ```
 
 ## Minimum and Maximum Lengths
+This is my minimum and maximum function:
 ```julia 
 function minMax(path)
     ret = parse_fasta(path)[2]
@@ -48,11 +53,11 @@ function minMax(path)
     return (retmin, retmax)
 end
 ```
-This is my minMax function, which calculates the minimum and maximum sequence lengths in the NCBI dataset.
-First, ret calls the parse function on the path, and with the location of `[2]`, to indicate that we are finding the length of the sequences and not of the headers.
-Then, the length of the minimum and the length
+This calculates the minimum and maximum sequence lengths in the dataset.
+1. Ret calls the parse function on the path, and with the location of `[2]`, to indicate that we are finding the length of the sequences and not of the headers.
+2. The length of the minimum and the length
 of the maximum of these sequences is taken.
-The minimum and maximum are outputs.
+- The minimum and maximum are outputs.
 This function is important because it helps us see the range of sequence data, to see how great variety is.
 
 ### Running minMax on my Refined Data
@@ -206,7 +211,7 @@ This function helps us visualize these differences.
 data= sortingseq("data/refined_data.fasta")[1];
 histogram(data, bins= 10, label= "Sorted Sequences", xlabel= "Sequence Lengths", ylabel= "Number of Sequences", legend=:topleft)
 ```
-This histogram was more intuitive than the last one as I finally understood how to initalize and label my data.
+This histogram was more intuitive than the last one as I *finally* understood how to initalize and label my data.
 In this histogram is the data that I sorted in the function above.
 You can clearly see the change in distribution, as the graph moves to the right.
 Making this was interesting but not as magnifying as I expected.
