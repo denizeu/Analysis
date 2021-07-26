@@ -55,18 +55,23 @@ of the maximum of these sequences is taken.
 The minimum and maximum are outputs.
 This function is important because it helps us see the range of sequence data, to see how great variety is.
 
-### Running minMax on my Refined Data
+**Running minMax on my Refined Data**
 I ran the minMax function on my refined data set, with the 12 sequences from each time period. 
+
 It worked like this:
+
 ```
 minMax("data/refined_data.fasta")
 (29833, 29881)
 ```
-This is extremely interesting because it indicates that there is some variation in sequence length.
-The minimum value is 29833, is 48 lower than the maximum sequence length of 29881.
-However, although these lengths are different, considering the magnitude of these lengths, 48 is not extremely large.
-Therefore we may consider that my refined data may not have enough variation for analyses that are very representative of COVID genomes.
+
+This is extremely interesting because it indicates that there is some *variation* in sequence length.
+The minimum value is 29833, which is 48 lower than the maximum sequence length of 29881.
 The code I created for this function was very simple and yet it returns two values that are extremely useful and important in sequence analyses.
+
+**However**, although these lengths are different, considering the magnitude of these lengths, 48 is not extremely large.
+Therefore we may consider that my refined data may not have enough variation and therefore is likely not very representative of COVID genomes.
+Despite this, the code is very powerful as it tells us a very interesting difference in sequences with little in-between data or calculations necessary.
 
 ## Sequence Lengths
 ```julia 
@@ -79,14 +84,16 @@ function seqlength(path)
     return lengths
 end
 ```
-This function returns the sequence lengths of each DNA sequence within the dataset from NCBI. 
-It creates an array in which the lengths can be stored.
-To clean up the data and separate them into header and sequences, the `parse_fasta()` function is called.
-This is important because it allows the two to be separated, and for further functions to be worked on the sequences independent of headers.
-I next initiated a for loop that goes through the data stored at position 2 by using `[2]`.
-This position represents the sequence data and assures that the length function is being called onto the sequences and not the header information.
-The length of each position within the data is pushed into the lengths array and then returned.
-This is important because the length of sequences can be compared for differences or used within various functions to determine important changes between genomes.
+
+This function returns the sequence lengths of each DNA sequence within a dataset. 
+It creates an *array* in which the lengths can be stored.
+
+- To clean up the data and separate them into header and sequences, the `parse_fasta()` function is called.
+- This is important because it allows the two to be separated, and for further functions to be worked on the sequences independent of headers.
+- I next initiated a `for` loop that goes through the data stored at position 2 by using `[2]`.
+- This position represents the sequence data and assures that the length function is being called onto the sequences and not the header information.
+- The length of each position within the data is pushed into the lengths array and then returned.
+- This is important because the length of sequences can be compared for differences or used within various functions to determine important changes between genomes.
 
 ### Sequence Length Function on my Data
 When I ran this function for my refined data set I got a very large output:
