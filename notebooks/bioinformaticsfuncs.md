@@ -24,7 +24,7 @@ This is important because it can be used as a "distance metric".
 This means that the sequences that are more similar are more likely to have a common ancestor.
 An example of the outputs that I got when inputing sequences and `k` values is this:
 
-```julia 
+```
 uniqueKmers("ATGCGATG", 4)
     Set{Any} with 5 elements:
     "TGCG"
@@ -59,14 +59,14 @@ Therefore, this mathematical function dividing the two and subtracting 1- that v
 This is important because it can be used to see when genomes diverge and become different from one another.
 
 When I tested this function out with this, I could clearly understand the metrics used for this test:
-```julia
+```
 kmerdist(uniqueKmers("AATA", 4), uniqueKmers("CGGCCCG", 4))
     1.0
 ```
 Since these two sequences have absolutely nothing in common, they are scored as 1.0.
 
 The importance of this scoring becomes obvious when comparing two sequences with some similarity:
-```julia
+```
 kmerdist(uniqueKmers("GCGCAT",2), uniqueKmers("ATAT",2))
     0.8
 ```
@@ -162,7 +162,7 @@ However, I found it extremely difficult to compile this bar graph.
 It was fairly difficult to put the notation in the correct places.
 At first I included commas in the `[]`'s which led to many errors.
 For example, with my labels I had written them out like this:
-```julia
+```
 labels = ["early" "middle" "late"]
 ```
 and also could not figure out how to differentiate between x and y labels!
@@ -252,7 +252,7 @@ Then, I realized that the smart way to do this is by going through the sections 
 `for j in 1:12`, `for i in 13:24`, `for i in 25:36`.
 It was also difficult to realize when to use `i` or `j` as the columns vs rows were not completely visibile within the matrix.
 In order to figure this function out, I relied on looking at specific points in the matrix by doing something like:
-```julia
+```
 distsort(pairdist("data/refined_data.fasta"))[3][141]
 0.16883116883116878
 ```

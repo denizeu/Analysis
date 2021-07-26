@@ -58,7 +58,7 @@ This function is important because it helps us see the range of sequence data, t
 ### Running minMax on my Refined Data
 I ran the minMax function on my refined data set, with the 12 sequences from each time period. 
 It worked like this:
-```julia
+```
 minMax("data/refined_data.fasta")
 (29833, 29881)
 ```
@@ -90,7 +90,7 @@ This is important because the length of sequences can be compared for difference
 
 ### Sequence Length Function on my Data
 When I ran this function for my refined data set I got a very large output:
-```julia
+```
 seqlength("data/refined_data.fasta")
 36-element Vector{Any}:
  29816
@@ -111,7 +111,7 @@ seqlength("data/refined_data.fasta")
  ```
  Therefore, in order to properly test my function and visually see if it works, I used a smaller data set such as my `datatry.fasta` dataset.
  With this dataset as the argument, I got a much smaller output:
- ```julia
+ ```
 seqlength("data/datatry.fasta")
 3-element Vector{Any}:
   3
@@ -164,7 +164,7 @@ In `[1]` exists the sequences that are below the length 29800 and in `[2]`, exis
 
 ### Sorting my Refined Data
 When I ran the function above on my data I got:
-```julia
+```
 32-element Vector{Any}:
  29816
  29807

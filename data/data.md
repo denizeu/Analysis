@@ -10,7 +10,7 @@ After finding a link to these genomes, I downloaded it and inserted this data as
 I named this file "genomes_CoV2.fasta". 
 I also created a file called ".gitignore" to make sure that git does not track the entire file and to keep from committing all of that data.
 
-## Data Files Used in this Project
+## Other Data Files Used in this Project
 
 ### Altered Data: refined_data.fasta
 This is the data I am using as a basis for my final project.
