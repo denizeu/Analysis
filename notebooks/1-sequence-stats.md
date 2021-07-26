@@ -21,17 +21,17 @@ function lengthcount(path)
 end
 ```
 This code is calculating the *mean* and *standard deviation* of the **gc content** and **lengths** of my coronavirus genomes.
-- For my project, I identify the data as being the refined CoV2 genomes dataset that I have chosen to study.
-- This function is important because it helps identify the different lengths and counts between sequences within a data file.
+This function is important because it helps identify the different lengths and counts between sequences within a data file.
+
 The output of this function which looks something like:
-```julia
+```
 (13.0, 5.656854249492381, 0.46405228758169936, 0.34199935822094457)
 ```
-- As you can see, this data shows the difference in sequences within a larger dataset.
+As you can see, this data shows the difference in sequences within a larger dataset:
 - This is a quick and easy way to see whether certain sequences are much longer than each other, or vary much from the mean number of sequences.
 - Helpful in understanding how much sequences change over time, or to further analyze to see what the affects are of longer/shorter sequences.
 
-- It is calculating the means of the lengths by initializing a one dimensional array for lengths and counts.
+It is calculating the means of the lengths by initializing a one dimensional array for lengths and counts.
 - The `for` loop is created in which the length of each position is pushed to the length array.
 - G's and C's are identified and the GC content is determined by dividing number of g's and c's by the length of each sequence.
 - The GC content is then pushed to the counts array.
@@ -57,7 +57,7 @@ This calculates the minimum and maximum sequence lengths in the dataset.
 1. Ret calls the parse function on the path, and with the location of `[2]`, to indicate that we are finding the length of the sequences and not of the headers.
 2. The length of the minimum and the length
 of the maximum of these sequences is taken.
-- The minimum and maximum are outputs.
+The minimum and maximum are outputs.
 This function is important because it helps us see the range of sequence data, to see how great variety is.
 
 ### Running minMax on my Refined Data
