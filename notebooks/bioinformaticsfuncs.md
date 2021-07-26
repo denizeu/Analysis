@@ -1,4 +1,4 @@
-# First Draft of Functions
+# Kmer Functions
 
 ## Finding the Unique Kmers
 ```julia 
@@ -53,7 +53,16 @@ I used uniquekmers within this because it is illuminating to see the differences
 ```julia 
 using Plots 
 using BioinformaticsBISC195
-histogram(kmertimes("data/genomes_CoV2.fasta"))
+bar(["early" "middle" "late"],
+           [64 73 95],
+           labels = ["early" "middle" "late"],
+           label = "Number of Unique Kmers",
+           title = "Time Period vs. Number of Unique Kmers",
+           xlabel = "Time Period",
+           ylabel = "Number of Unique Kmers",
+           color = [:steelblue :pink :lavender],
+           bg= "beige",
+           legend = :topleft
 ```
 This is a Plots function.
 It creates a bar graph with x and y
@@ -62,9 +71,10 @@ Y stores number of unique kmers: 63, 74, 95.
 I chose a bar graph because this will allow for differences in the number of unique kmers between the three periods to be clear. 
 It is also a good way to visualize the actual counts through the "y" axis.
 
-## Comparing Kmer Geo Locations: Turkey vs. Japan
+## Comparing the Distance between Unique Kmers in Sequences
 ```julia
-@doc pairdist
+using BioinformaticsBISC195
+@doc pairdist(path)
 ```
 This is the function I am trying to use to calculate pairwise kmer distance using a matrix.
 My function is meant to create a matrix of sequences which lists the sequences stored in "data/refined_data.fasta".
@@ -77,11 +87,10 @@ This is done in order to convert this data into a boxplot which will represent t
 
 ## Pairwise Kmer Distance Box Plot
 ```julia
-Plots.gr()
-x= ["Turkey", "Japan"] #x-value is location: turkey or japan
-y= [Tu, Ja] #y value holds the arrays of unique kmers
-pie(x, y, title= "Number of Unique COVID-19 Kmers in Turkey vs. Japan")
+using Plots
+
 ```
-I decided to use a piechart to compare Japan and Turkey's number of unique kmers because I believe this will highlight the differences in genomes.
+I decided to use a boxplot to compare the number of unique kmers per time period. 
+I believe this will highlight the differences in genomes.
 By comparing the two side by side and as parts of a whole, it will be clear which country had much more unique kmers.
 However, this is a first draft, like all my code.
