@@ -1,4 +1,4 @@
-# Kmer Functions
+# Kmer Analyses
 
 ## Finding the Unique Kmers
 ```julia 

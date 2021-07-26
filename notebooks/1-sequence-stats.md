@@ -55,7 +55,8 @@ of the maximum of these sequences is taken.
 The minimum and maximum are outputs.
 This function is important because it helps us see the range of sequence data, to see how great variety is.
 
-**Running minMax on my Refined Data**
+### Running minMax on my Refined Data
+
 I ran the minMax function on my refined data set, with the 12 sequences from each time period. 
 
 It worked like this:
@@ -65,13 +66,12 @@ minMax("data/refined_data.fasta")
 (29833, 29881)
 ```
 
-This is extremely interesting because it indicates that there is some *variation* in sequence length.
-The minimum value is 29833, which is 48 lower than the maximum sequence length of 29881.
-The code I created for this function was very simple and yet it returns two values that are extremely useful and important in sequence analyses.
-
-**However**, although these lengths are different, considering the magnitude of these lengths, 48 is not extremely large.
-Therefore we may consider that my refined data may not have enough variation and therefore is likely not very representative of COVID genomes.
-Despite this, the code is very powerful as it tells us a very interesting difference in sequences with little in-between data or calculations necessary.
+This is extremely interesting because it indicates that there is *some variation* in sequence length.
+- The minimum value is 29833, which is 48 lower than the maximum sequence length of 29881.
+- The code I created for this function was very simple and yet it returns two values that are extremely useful and important in sequence analyses.
+- **However**, although these lengths are different, considering the magnitude of these lengths, 48 is not extremely large.
+- Therefore we may consider that my refined data may not have enough variation and therefore is likely not very representative of COVID genomes.
+- Despite this, the code is powerful as it tells us a very interesting difference in sequences with little in-between data or calculations necessary.
 
 ## Sequence Lengths
 ```julia 
@@ -95,7 +95,7 @@ It creates an *array* in which the lengths can be stored.
 - The length of each position within the data is pushed into the lengths array and then returned.
 - This is important because the length of sequences can be compared for differences or used within various functions to determine important changes between genomes.
 
-### Sequence Length Function on my Data
+### Using the Sequence Length Function on my Data
 When I ran this function for my refined data set I got a very large output:
 ```
 seqlength("data/refined_data.fasta")
@@ -117,6 +117,7 @@ seqlength("data/refined_data.fasta")
  29836
  ```
  Therefore, in order to properly test my function and visually see if it works, I used a smaller data set such as my `datatry.fasta` dataset.
+
  With this dataset as the argument, I got a much smaller output:
  ```
 seqlength("data/datatry.fasta")
@@ -125,25 +126,26 @@ seqlength("data/datatry.fasta")
  64
   4
 ```
-With this output, I could clearly see that the function worked well for my data as well since the counts matched. 
-Because of this, creating this function was difficult because it was not extremely simple to check whether my lengths were correct.
-However, this is an interesting output because it allows me to see how different the lengths are as the time periods increase. 
-Based on this output, we see some examples of sequence lengths increasing, and some examples of decreasing sequence lengths as the time goes on.
-This code is interesting because it utilizes a path and is able to recognize the lengths of sequences by referring to these with `i`.
+- With this output, I could clearly see that the function worked well for my data as well since the counts matched. 
+- Because of this, creating this function was difficult: it was not easy to check whether my lengths were correct.
+- However, this is an interesting analysis because it allows me to see how different the lengths are as the time periods increase. 
+- Based on this output, we see some examples of sequence lengths increasing, and some examples of decreasing sequence lengths as the time goes on.
+- This code is useful because utilizes a path and is able to recognize the lengths of sequences by referring to these with `i`.
 
 
-### Histogram of Sequence Lengths
+## Histogram of Sequence Lengths
 ```julia 
 using Plots
 data= seqlength("data/refined_data.fasta");
 histogram(data, bins=10, label= "sequence lengths", xlabel= "Sequence Lengths", ylabel= "Number of Sequences")
 ```
-Using the function for sequence lengths above and by initiating the Plots package, this creates a histogram that shows the sequence lengths as the x-axis and number of occurences on the y-axis.
+Using the function for sequence lengths above and by initiating the Plots package, this creates a histogram that shows the sequence lengths as the *x*-axis and number of occurences on the *y*-axis.
 This graph is a clear visualization of what the majority length of the sequences is.
-From the graph, it seems that there are significantly more occurrences within the sequence length of around 29825.
-This can be used to determine where most of the data exists.
-It also shows that, most of the genomes are above the length of 29500.
-This is important in comparing sequence sizes and showing which are more/less similar to one another.
+- From the graph, it seems that there are significantly more occurrences within the sequence length of around 29825.
+- This can be used to determine where most of the data exists.
+- It also shows that, most of the genomes are above the length of 29500.
+- This is important in comparing sequence sizes and showing which are more/less similar to one another.
+
 This histogram was difficult to create because it was my first time creating them.
 I had to figure out how to properly graph the dataset as well as use the seqlength function on that data.
 It took me a while to realize that I could simply use: 
@@ -151,7 +153,7 @@ It took me a while to realize that I could simply use:
 to perform the function on my project's data set.
 Although this is very obvious, it was very important in creating a succinct graph which properly calculated the sequence lengths necessary for the histogram.
 
-### Getting Rid of 5% of Sequences
+## Getting Rid of 5% of Sequences
 ```julia 
 function sortingseq(path)
     sequences = seqlength(path)
@@ -164,7 +166,7 @@ end
 ```
 After plotting the sequence lengths of my data, I realized that it would be very interesting to cut out the last 5% of my sequence lengths in order to have a magnified histogram.
 Based on my graph, I decided that 5% of my sequences likely fall somewhere around 29778.
-Therefore, I decided it would be interesting to get rid of that 5% by sorting out the sequences below that length value.
+Therefore, I decided it would be interesting to get rid of that 5% by sorting out the sequences *below* that length value.
 This function is a sorting function which cuts down the sequence length data to only show the relevant basepair lengths above 29800.
 This function returns two vectors stored at positions `[1]` and `[2]`.
 In `[1]` exists the sequences that are below the length 29800 and in `[2]`, exists the headers that correspond to the sequences that are below the sequence length 29800.
@@ -190,11 +192,12 @@ When I ran the function above on my data I got:
  29836
 ```
 Based on the histogram and the function above I learned very much about my data.
-I learned that when getting rid of around 5%, lots of the data was toward the larger end of the scale rather than at the beginning.
-This shows that the sequences that I am analyzing fall around the larger lengths rather than smaller lengths.
-It also shows how important differences in sequence size are in comparing genomes, as well as how helpful graphing these differences is.
-Since this function only returns a 32-element vector, it is difficult to differentiate the number of sequences that fall in each length.
-However, as you see later on, using a histogram helps to hone in on the specific sequence lengths that we are curious about.
+- I learned that: when getting rid of around 5%, lots of the data was toward the larger end of the scale rather than at the beginning.
+    - This shows that the sequences that I am analyzing fall around the larger lengths rather than smaller lengths.
+    - It also shows how important differences in sequence size are in comparing genomes, as well as how helpful graphing these differences is.
+- Since this function only returns a 32-element vector, it is difficult to differentiate the number of sequences that fall in each length.
+- However, as you see later on, using a histogram helps to hone in on the specific sequence lengths that we are curious about.
+
 From this function above however, we can conclude that these sequence lengths are relatively large and fit within a small-ish range of values.
 This function helps us visualize these differences.
 
